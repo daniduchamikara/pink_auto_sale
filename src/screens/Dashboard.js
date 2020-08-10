@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Image,
     Button,
-    Modal,
     TouchableOpacity,
     TouchableHighlight,
     ScrollView
@@ -15,15 +14,17 @@ import { FlatGrid } from 'react-native-super-grid';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ProgressCircle from 'react-native-progress-circle'
-
 import BigButton from "./components/BigButton";
 import RoundButton from "./components/RoundButton";
 
+import Modal from 'react-native-modal';
 
 export default class Dashboard extends Component {
-
-    state = {
-        visible: false, //state of modal default false  
+    constructor(props) {
+        super(props)
+        this.state = {
+            visible: false,
+        }
     }
 
     visibleModal() {
@@ -31,7 +32,6 @@ export default class Dashboard extends Component {
             visible: !this.state.visible
         })
     }
-
 
 
     render() {
@@ -46,11 +46,17 @@ export default class Dashboard extends Component {
                 <Modal
                     style={{ justifyContent: 'center', alignItems: 'center' }}
                     isVisible={this.state.visible}
-                    animationIn={'fadeInUpBig'}
+                    animationIn={'fadeInDownBig'}
                     animationOut={'fadeOutDownBig'}
                     animationInTiming={500}
                     animationOutTiming={500}>
-                    <TouchableOpacity style={styles.modal} onPress={() => this.visibleModal()}>
+
+                    <TouchableOpacity style={styles.modal}>
+
+                        <BigButton
+                            title='Close'
+                            onPressBtn={() => this.visibleModal()}
+                        />
 
                     </TouchableOpacity>
 
@@ -212,12 +218,12 @@ const styles = StyleSheet.create({
     },
 
     modal: {
-        width: '70%',
-        height: '70%',
+        width: '90%',
+        height: '90%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         padding: 15,
         borderRadius: 10,
     },
