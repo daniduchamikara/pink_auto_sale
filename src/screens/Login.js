@@ -44,6 +44,7 @@ export default class Dashboard extends Component {
 
                     <BigButton
                         title='Continue'
+                        onPressBtn={() => this.props.navigation.navigate('OTPVerification')}
                     />
                     <View style={{ flexDirection: "column", margin: 50 }}>
                         {/* <View style={{ flexDirection: "row", justifyContent: 'center' }}> */}
@@ -60,7 +61,7 @@ export default class Dashboard extends Component {
                             borderColor: '#FF1493'
                         }}>OR</Text>
                         {/* </View> */}
-                        <View style={{ flexDirection: "row" }}>
+                        <View style={{ flexDirection: "row", alignSelf: 'center' }}>
                             <Feather style={{ padding: 15, borderRadius: 100, backgroundColor: 'white', elevation: 5 }} name="facebook" size={45} color={'#FF1493'} />
                             <View style={{ width: '20%' }} ></View>
                             <FontAwesome style={{ padding: 15, borderRadius: 100, backgroundColor: 'white', elevation: 5 }} name="google" size={45} color={'#FF1493'} />
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         flexDirection: 'column',
-        margin: 20,
+        padding: '2%',
         backgroundColor: 'white'
 
     },

@@ -11,9 +11,6 @@ import {
 
 } from "react-native";
 import { FlatGrid } from 'react-native-super-grid';
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
-import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import BigButton from "./components/BigButton";
 
 
@@ -65,6 +62,7 @@ export default class Registration extends Component {
                     <View style={{ width: '100%', paddingTop: '5%' }}>
                         <BigButton
                             title='Register'
+                            onPressBtn={() => this.props.navigation.navigate('Dashboard')}
                         />
                     </View>
                     <View style={{ width: '100%', paddingTop: '5%', justifyContent: 'center' }}>

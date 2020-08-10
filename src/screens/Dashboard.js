@@ -5,19 +5,34 @@ import {
     StyleSheet,
     Image,
     Button,
+    Modal,
     TouchableOpacity,
     TouchableHighlight,
+    ScrollView
 
 } from "react-native";
 import { FlatGrid } from 'react-native-super-grid';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ProgressCircle from 'react-native-progress-circle'
 
-
-import { ScrollView } from "react-native-gesture-handler";
 import BigButton from "./components/BigButton";
+import RoundButton from "./components/RoundButton";
+
 
 export default class Dashboard extends Component {
+
+    state = {
+        visible: false, //state of modal default false  
+    }
+
+    visibleModal() {
+        this.setState({
+            visible: !this.state.visible
+        })
+    }
+
+
 
     render() {
         const items = [
@@ -28,140 +43,158 @@ export default class Dashboard extends Component {
         ];
         return (
             <View style={styles.container}>
+                <Modal
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                    isVisible={this.state.visible}
+                    animationIn={'fadeInUpBig'}
+                    animationOut={'fadeOutDownBig'}
+                    animationInTiming={500}
+                    animationOutTiming={500}>
+                    <TouchableOpacity style={styles.modal} onPress={() => this.visibleModal()}>
 
-                <View style={{ margin: 20 }}>
-                    <View style={{ flexDirection: 'row', height: 40 }}>
-                        <Icon name='menu' size={25} color={'black'} />
-                        <View style={{ flex: 1 }} />
-                        <Icon name='ios-notifications' size={25} color={'black'} />
-                        <View style={{ flex: 0.03 }} />
-                        <Icon name='chatbubble-ellipses-outline' size={25} color={'black'} />
+                    </TouchableOpacity>
+
+                </Modal>
+
+                <View style={{ flexDirection: 'row', height: 40 }}>
+                    <Icon name='menu' size={25} color={'black'} />
+                    <View style={{ flex: 1 }} />
+                    <Icon name='ios-notifications' size={25} color={'black'} />
+                    <View style={{ flex: 0.03 }} />
+                    <Icon name='chatbubble-ellipses-outline' size={25} color={'black'} />
+                </View>
+                <View style={{ alignSelf: 'flex-start', width: '100%' }}>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Your Performance</Text>
+                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
+                        <View>
+                            <RoundButton
+                                value='121'
+                                bcolour='#D4CECA'
+                                textColor='#000000'
+                                title=''
+                            />
+                            <Text style={{ fontSize: 12 }}>Daily Target</Text>
+                        </View>
+                        <View>
+                            <RoundButton
+                                value='121'
+                                bcolour='#FDA0DB'
+                                textColor='#E80A97'
+                                title=''
+                            />
+                            <Text style={{ fontSize: 12 }}>Daily Target</Text>
+                        </View>
+                        <View style={{ paddingBottom: '5%' }} >
+                            <ProgressCircle
+                                percent={55}
+                                radius={50}
+                                borderWidth={12}
+                                color="#3399FF"
+                                shadowColor="#999"
+                                bgColor="#fff"
+                            >
+                                <Text style={{ fontSize: 18 }}>{'55%'}</Text>
+                            </ProgressCircle>
+                            <Text style={{ alignSelf: 'center', fontSize: 12, paddingTop: '5%' }}>Daily Target</Text>
+                        </View>
                     </View>
 
-                    <Text style={[styles.title, { fontSize: 24 }]}>Good Morning!</Text>
-                    <View style={{ padding: 5 }} />
-                    <Text style={[styles.title, { fontSize: 14 }]}>Activity Request</Text>
-                    <View style={{ padding: 10 }} />
-
-                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ alignItems: 'center' }}>
-
-                        <TouchableOpacity style={styles.detailContainer}>
-                            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Nano Ceramic Coating</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 14 }}>Vehicle Reached Center</Text>
-                                <View style={{ flex: 1 }} />
-                                <Text style={{ fontSize: 12, fontWeight: 'bold' }}>View Details</Text>
-                                <IconM name='chevron-right' size={20} color={'red'} />
-                            </View>
-                        </TouchableOpacity>
-
-                        <View style={{ height: 220 }}>
-                            <FlatGrid
-                                itemDimension={200}
-                                data={items}
-                                style={styles.gridView}
-                                showsHorizontalScrollIndicator={false}
-                                horizontal={true}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity style={styles.itemContainer}>
-                                        <Image source={item.img} resizeMode={'stretch'}
-                                            style={{ width: 100, height: 80 }} />
-                                        <Text style={styles.itemName}>{item.name}</Text>
-                                        <Text style={styles.itemNumber}>{item.nmber}</Text>
-                                    </TouchableOpacity>
-                                )}
-                            />
-                        </View>
-                        <Text style={styles.title}>Select Type of car wash</Text>
-
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                underlayColor: '#D360CE'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{
-                                height: 100,
-                                flex: 1,
-                                backgroundColor: '#f6e6f1',
-                                margin: 5,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
-                                <Text style={styles.buttonName}>Nano Coating </Text>
-
-                            </TouchableOpacity>
-
-                        </View>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '100%', backgroundColor: '#E7EFF2' }}>
+                    <Text style={{ fontSize: 20, color: '#9E9E9E', padding: '5%', width: '70%' }}>Latest Commissin </Text>
+                    <Text style={{ fontSize: 20, color: '#F21893', padding: '5%' }}>5500 LKR </Text>
+                </View>
 
 
-                        <BigButton
-                            title='Next'
-                        />
+                <Text style={styles.title}>Select Type of ads</Text>
 
-                    </ScrollView>
+                <View style={{ flexDirection: 'row', width: '100%' }}>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        underlayColor: '#D360CE'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
+
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', width: '100%' }}>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        height: 100,
+                        flex: 1,
+                        backgroundColor: '#f6e6f1',
+                        margin: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Image source={require('../assets/images/car-wash.png')} resizeMode={'stretch'} style={{ width: 50, height: 50 }} />
+                        <Text style={styles.buttonName}>Nano Coating </Text>
+
+                    </TouchableOpacity>
 
                 </View>
+                <View style={{ width: '100%', paddingTop: '2%' }}>
+                    <BigButton
+                        title='New Customer'
+                        onPressBtn={() => this.visibleModal()}
+                    />
+                </View>
+
+
+
             </View>
 
         );
@@ -170,10 +203,23 @@ export default class Dashboard extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        width: '100%',
+        padding: 20,
+    },
 
+    modal: {
+        width: '70%',
+        height: '70%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'red',
+        padding: 15,
+        borderRadius: 10,
     },
 
     gridView: {
@@ -239,7 +285,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'black',
-        fontSize: 16,
+        fontSize: 25,
         alignSelf: 'flex-start',
         fontWeight: 'bold'
     }

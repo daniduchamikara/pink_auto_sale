@@ -9,7 +9,7 @@ import {
 class BigButton extends Component {
     render() {
         return (
-            <TouchableOpacity style={styles.nextBtn}>
+            <TouchableOpacity style={styles.nextBtn} onPress={this.props.onPressBtn}>
                 <Text style={{ fontSize: 20, color: 'white' }}>
                     {this.props.title}
                 </Text>

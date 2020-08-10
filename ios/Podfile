@@ -8,6 +8,8 @@ target 'Pink_Auto_Sale' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'Pink_Auto_SaleTests' do
     inherit! :complete
     # Pods for testing
